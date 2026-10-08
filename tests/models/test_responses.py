@@ -874,6 +874,20 @@ def test_json_with_specified_charset(encoding):
                 "self": {"url": "/resource", "rel": "self"},
             },
         ),
+        (
+            {"Link": '</resource>; anchor="https://example.com/?page=1"; rel="next"'},
+            {
+                "next": {
+                    "url": "/resource",
+                    "anchor": "https://example.com/?page=1",
+                    "rel": "next",
+                }
+            },
+        ),
+        (
+            {"Link": '</resource>; title="a=b=c"; rel="next"'},
+            {"next": {"url": "/resource", "title": "a=b=c", "rel": "next"}},
+        ),
     ],
 )
 def test_link_headers(headers, expected):
